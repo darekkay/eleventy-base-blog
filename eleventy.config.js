@@ -5,7 +5,8 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
-const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+const { EleventyHtmlBasePlugin, EleventyRenderPlugin } = require("@11ty/eleventy");
+const pluginWebc = require("@11ty/eleventy-plugin-webc");
 
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const pluginImages = require("./eleventy.config.images.js");
@@ -23,6 +24,11 @@ module.exports = function(eleventyConfig) {
 
 	// Watch content images for the image pipeline.
 	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
+
+  eleventyConfig.addPlugin(EleventyRenderPlugin);
+  eleventyConfig.addPlugin(pluginWebc, {
+    components: "_includes/webc/components/*.webc",
+  });
 
 	// App plugins
 	eleventyConfig.addPlugin(pluginDrafts);
